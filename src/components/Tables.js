@@ -1,29 +1,28 @@
-import React from "react";
-import { Table } from "react-bootstrap";
+import React from 'react';
+import { Table } from 'react-bootstrap';
+import UserTable from './UserTable';
 
-const Tables = ({ age, first, last, email, phone, addTable }) => {
-  return (
-    <div>
-      <Table striped bordered hover className="table">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Age</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{first + " " + last}</td>
-            <td>{email}</td>
-            <td>{phone}</td>
-            <td>{age}</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-  );
+
+const Tables = ({addUser}) => {
+    console.log(addUser);
+    return (
+        <div>
+        {
+            addUser.length > 0  ? ( <Table striped bordered hover className='table'>
+            <thead>
+                <tr>
+                <th>First Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Age</th>
+                </tr>
+            </thead>
+            <UserTable addUser = {addUser} />
+        </Table>) : null
+        } 
+            
+        </div>
+    );
 };
 
 export default Tables;

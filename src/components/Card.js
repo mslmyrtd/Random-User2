@@ -16,6 +16,7 @@ const Card = () => {
   const [user, setUser] = useState([]);
   const [userTitle, setUserTitle] = useState("My Name Is");
   const [userInfo, setUserInfo] = useState("");
+  const [addUser, setAddUser] = useState([]);
 
   const userData = async () => {
     const dataFirst = await axios(api)
@@ -46,6 +47,9 @@ const Card = () => {
       gender,
       password,
     });
+
+    setUserTitle("My Name Is");
+    setUserInfo(title + " " + first + " " + last);
   };
   const {
     title,
@@ -60,11 +64,16 @@ const Card = () => {
     gender,
     password,
   } = user;
-  console.log(title);
+
   useEffect(() => userData(), []);
 
-  const addTable = () => {};
+  const buttonFunk = () => {
+    addUser.includes(user)
+      ? alert("you have already added the same user.")
+      : setAddUser([...addUser, user]);
+  };
 
+  console.log(addUser);
   return (
     <div className="card-container">
       <div>
@@ -76,7 +85,7 @@ const Card = () => {
       </div>
       <div className="infoIcon">
         <div
-          onMouseEnter={() => {
+          onMouseOver={() => {
             setUserTitle("My Name Is");
             setUserInfo(title + " " + first + " " + last);
           }}
@@ -85,7 +94,7 @@ const Card = () => {
         </div>
 
         <div
-          onMouseEnter={() => {
+          onMouseOver={() => {
             setUserTitle("My Email Is");
             setUserInfo(email);
           }}
@@ -94,7 +103,7 @@ const Card = () => {
         </div>
 
         <div
-          onMouseEnter={() => {
+          onMouseOver={() => {
             setUserTitle("My Age Is");
             setUserInfo(age);
           }}
@@ -103,7 +112,7 @@ const Card = () => {
         </div>
 
         <div
-          onMouseEnter={() => {
+          onMouseOver={() => {
             setUserTitle("My Location Is");
             setUserInfo(city + " " + country);
           }}
@@ -112,7 +121,7 @@ const Card = () => {
         </div>
 
         <div
-          onMouseEnter={() => {
+          onMouseOver={() => {
             setUserTitle("My Phone Number Is");
             setUserInfo(phone);
           }}
@@ -121,7 +130,7 @@ const Card = () => {
         </div>
 
         <div
-          onMouseEnter={() => {
+          onMouseOver={() => {
             setUserTitle("My Password Is");
             setUserInfo(password);
           }}
@@ -131,10 +140,10 @@ const Card = () => {
       </div>
       <div className="buttons">
         <button onClick={userData}>NEW USER</button>
-        <button onClick={addTable}>ADD USER</button>
-      </div>{" "}
+        <button onClick={buttonFunk}>ADD USER</button>
+      </div>
       <br />
-      <Tables {...user} addTable={addTable} />
+      <Tables addUser={addUser} />
     </div>
   );
 };
